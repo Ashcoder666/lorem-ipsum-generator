@@ -2,16 +2,18 @@ import React,{useEffect, useState} from 'react'
 
 const Generator = ({data}) => {
     const [number,setNumber] = useState(1);
-    const [datas,setDatas] = useState(data)
+    const [datas,setDatas] = useState([])
     const [show,setShow] = useState(false)
     const [lorem,setLorems] = useState()
     const paragen = ()=>{
-        const newarr = [...datas];
-          newarr.splice(number)
-          setLorems(newarr)
-          setShow(true)
-         
-     
+       
+        
+        let count = parseInt(number) 
+        if(count < 0 ){
+          count= 1
+        }
+       setDatas(data.slice(0,count))
+       setShow(true)
     }
     
   return (
@@ -20,7 +22,7 @@ const Generator = ({data}) => {
       <input type='number' onChange={(e)=>{setNumber(e.target.value)}} />
       <button onClick={paragen} >Generate</button>
       <div>
-         {show&&lorem}
+       {show&&datas.map((item,index)=>{return <p key={index}>{item}</p>})}
       </div>
     </div>
   )
